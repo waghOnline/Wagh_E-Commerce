@@ -1,0 +1,18 @@
+# Normalize line endings to LF in the repo regardless of the OS/editor
+# checking files out. Prevents the CRLF drift seen when this repo is
+# edited from Windows without core.autocrlf configured.
+* text=auto eol=lf
+
+# Binary-ish / generated files: leave untouched, don't run through the
+# text-normalization diff/merge machinery.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.rar binary
+*.xlsx binary
+*.woff binary
+*.woff2 binary

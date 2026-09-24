@@ -105,17 +105,32 @@ export function Home() {
                 </span>
               </div>
 
-              {/* Responsive Hero Banner Image Container */}
+              {/* Responsive Hero Banner Image Container.
+                  This is the page's LCP element, so it loads eagerly (no
+                  lazy loading) with fetchPriority="high" and is preloaded
+                  from <head> (see index.html). AVIF is the primary format
+                  (~37KB at the size this actually renders at, vs. the 5.4MB
+                  PNG this replaced) with a JPEG srcset as the fallback for
+                  browsers without AVIF support. */}
               <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-200/80 shadow-md group">
-                <img
-                  src="/assets/branding/wagh-100w-launch-banner.png?v=3"
-                  alt="WAGH 100W Fast Charger New Launch Banner"
-                  className="w-full h-full object-cover sm:object-contain group-hover:scale-105 transition-transform duration-500 rounded-2xl"
-                  width="800"
-                  height="800"
-                  fetchPriority="high"
-                  decoding="async"
-                />
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcSet="/assets/branding/wagh-100w-launch-banner-480.avif 480w, /assets/branding/wagh-100w-launch-banner-800.avif 800w, /assets/branding/wagh-100w-launch-banner-1200.avif 1200w"
+                    sizes="(min-width: 1024px) 460px, (min-width: 640px) 70vw, 92vw"
+                  />
+                  <img
+                    src="/assets/branding/wagh-100w-launch-banner-800.jpg"
+                    srcSet="/assets/branding/wagh-100w-launch-banner-480.jpg 480w, /assets/branding/wagh-100w-launch-banner-800.jpg 800w, /assets/branding/wagh-100w-launch-banner-1200.jpg 1200w"
+                    sizes="(min-width: 1024px) 460px, (min-width: 640px) 70vw, 92vw"
+                    alt="WAGH 100W Fast Charger New Launch Banner"
+                    className="w-full h-full object-cover sm:object-contain group-hover:scale-105 transition-transform duration-500 rounded-2xl"
+                    width="800"
+                    height="800"
+                    fetchPriority="high"
+                    decoding="async"
+                  />
+                </picture>
               </div>
 
               <div className="space-y-2">
@@ -276,11 +291,23 @@ export function Home() {
               className="relative group w-full max-w-lg aspect-square flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-3xl p-4 border border-wagh-teal/20 shadow-lg"
             >
               <div className="absolute -inset-2 bg-gradient-to-r from-wagh-teal/20 to-wagh-gold/20 rounded-3xl opacity-30 blur-xl group-hover:opacity-50 transition-opacity" />
-              <img
-                src="/assets/branding/wagh-all-in-one-packaging-banner.jpg"
-                alt="WAGH ALL IN 1 2.0 66W 100W Flash Charger Box Packaging"
-                className="w-full h-full object-contain rounded-2xl shadow-md group-hover:scale-105 transition-transform duration-500 relative z-10"
-              />
+              {/* Below the fold — lazy-loaded. AVIF primary, existing JPEG as fallback. */}
+              <picture>
+                <source
+                  type="image/avif"
+                  srcSet="/assets/branding/wagh-all-in-one-packaging-banner-800.avif 800w, /assets/branding/wagh-all-in-one-packaging-banner-1024.avif 1024w"
+                  sizes="(min-width: 1024px) 460px, 80vw"
+                />
+                <img
+                  src="/assets/branding/wagh-all-in-one-packaging-banner.jpg"
+                  alt="WAGH ALL IN 1 2.0 66W 100W Flash Charger Box Packaging"
+                  className="w-full h-full object-contain rounded-2xl shadow-md group-hover:scale-105 transition-transform duration-500 relative z-10"
+                  width="1024"
+                  height="1024"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
             </Link>
           </div>
 

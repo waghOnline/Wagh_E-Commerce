@@ -4,13 +4,19 @@ import AnnouncementBar from './components/AnnouncementBar';
 import { Navbar } from './components/Navbar';
 import { SearchOverlay } from './components/SearchOverlay';
 import { MobileDrawer } from './components/MobileDrawer';
-import { LoginModal } from './components/LoginModal';
 import { Footer } from './components/Footer';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminGateway } from './components/AdminGateway';
 import ErrorBoundary from './components/ErrorBoundary';
 
 // Pages
+// LoginModal pulls in zod (~70KB) via its validation schemas. It's mounted
+// on every page (controlled by isOpen) but only ever rendered by visitors
+// who actually open it, so it's lazy-loaded rather than shipped in the
+// initial bundle every page load pays for. It already returns null when
+// closed, so `fallback={null}` below is visually identical to today.
+const LoginModal = React.lazy(() => import('./components/LoginModal').then((module) => ({ default: module.LoginModal })));
+
 const Home = React.lazy(() => import('./pages/Home').then((module) => ({ default: module.Home })));
 const Shop = React.lazy(() => import('./pages/Shop').then((module) => ({ default: module.Shop })));
 const ProductDetail = React.lazy(() => import('./pages/ProductDetail').then((module) => ({ default: module.ProductDetail })));
@@ -90,10 +96,23 @@ function MainAppLayout() {
         onOpenAuthModal={() => setAuthModalOpen(true)}
       />
 
-      <LoginModal
-        isOpen={authModalOpen}
-        onClose={() => setAuthModalOpen(false)}
-      />
+      {/* Mounted only once actually opened: React.lazy() triggers its
+          dynamic import as soon as the component is present in the JSX
+          tree at all (isOpen=false would still return null AFTER the
+          chunk loads, it doesn't stop the chunk from being requested) —
+          so gating on isOpen from the outside, not just passing it as a
+          prop, is what actually defers the zod-heavy chunk until the
+          visitor clicks Sign In. LoginModal already returns null the
+          instant it's closed (no exit transition), so this is visually
+          identical to before, both opening and closing. */}
+      {authModalOpen && (
+        <React.Suspense fallback={null}>
+          <LoginModal
+            isOpen={authModalOpen}
+            onClose={() => setAuthModalOpen(false)}
+          />
+        </React.Suspense>
+      )}
 
       <main className="flex-1">
         <React.Suspense fallback={<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"><div className="h-8 w-56 rounded bg-slate-200 animate-pulse" /><div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-6">{Array.from({ length: 4 }, (_, index) => <div key={index} className="aspect-[4/5] rounded-2xl bg-slate-200 animate-pulse" />)}</div></div>}>

@@ -15,6 +15,10 @@ export function Footer() {
                 src="/assets/branding/wagh-logo-2x.png"
                 alt="WAGH Mobile Accessories"
                 className="h-9 w-auto object-contain brightness-0 invert"
+                width="1024"
+                height="295"
+                loading="lazy"
+                decoding="async"
               />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">

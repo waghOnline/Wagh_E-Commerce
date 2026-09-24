@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="client/public/assets/branding/wagh-100w-launch-banner.png" alt="WAGH Banner" width="100%" style="border-radius: 12px; margin-bottom: 20px;" />
+  <img src="client/public/assets/branding/wagh-100w-launch-banner-1200.jpg" alt="WAGH Banner" width="100%" style="border-radius: 12px; margin-bottom: 20px;" />
 
   # ⚡ WAGH Mobile Accessories
   ### *Full-Stack MERN E-Commerce Platform*

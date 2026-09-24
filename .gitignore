@@ -15,3 +15,10 @@ build/
 node_modules/
 .vercel
 .claude/
+
+# Local-only originals of assets that were downsized for the deployed site
+# (see client/public/assets/branding/) — kept on disk for future re-edits,
+# not deployed, not committed. The exact bytes remain recoverable from git
+# history at the commit before they were moved here, if this folder is ever
+# lost; this is just a convenience copy, not the only copy.
+assets-source-archive/

@@ -73,10 +73,14 @@ export function Navbar({ onOpenSearch, onOpenMobileDrawer, onOpenAuthModal }) {
             className="flex items-center group py-1 cursor-pointer"
             title="Go to Home & Scroll to Top"
           >
-            <img 
-              src="/assets/branding/wagh-logo-2x.png" 
-              alt="WAGH Mobile Accessories" 
-              className="h-8 sm:h-10 w-auto object-contain group-hover:scale-105 transition-transform" 
+            <img
+              src="/assets/branding/wagh-logo-2x.png"
+              alt="WAGH Mobile Accessories"
+              className="h-8 sm:h-10 w-auto object-contain group-hover:scale-105 transition-transform"
+              width="1024"
+              height="295"
+              fetchPriority="high"
+              decoding="async"
             />
           </a>
         </div>

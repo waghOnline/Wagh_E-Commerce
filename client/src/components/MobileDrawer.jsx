@@ -24,10 +24,13 @@ export function MobileDrawer({ isOpen, onClose }) {
         {/* Header */}
         <div className="p-5 border-b border-wagh-border flex items-center justify-between bg-wagh-teal text-white">
           <Link to="/" onClick={onClose}>
-            <img 
-              src="/assets/branding/wagh-logo-2x.png" 
-              alt="WAGH Mobile Accessories" 
-              className="h-8 w-auto object-contain brightness-0 invert" 
+            <img
+              src="/assets/branding/wagh-logo-2x.png"
+              alt="WAGH Mobile Accessories"
+              className="h-8 w-auto object-contain brightness-0 invert"
+              width="1024"
+              height="295"
+              decoding="async"
             />
           </Link>
           <button
